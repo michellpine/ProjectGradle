@@ -11,7 +11,7 @@ public class NotifyPersonService {
     }
 
     public String notify(Person person){
-        String message = "Welcome "+person.getName();
+        String message = " Welcome "+person.getName();
         return emailService.sendEmail(message);
     }
 }

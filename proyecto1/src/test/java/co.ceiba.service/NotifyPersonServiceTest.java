@@ -5,6 +5,7 @@ import co.ceiba.testDataBuilder.PersonTestDataBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class NotifyPersonServiceTest {
 
@@ -13,7 +14,9 @@ public class NotifyPersonServiceTest {
 
     @Before
     public void setUp(){
-        emailService = new EmailService();
+        //emailService = new EmailService();
+        //Usando Mockito
+        emailService = Mockito.mock(EmailService.class);
         notifyPersonService = new NotifyPersonService(emailService);
     }
 
@@ -21,11 +24,13 @@ public class NotifyPersonServiceTest {
     public void notifyTest(){
         //Arrange
         Person person = new PersonTestDataBuilder().build();
+        Mockito.when(emailService.sendEmail(Mockito.anyString())).thenReturn("Hola Mundo");
 
         //Act
         String message = notifyPersonService.notify(person);
 
         //Assert
         Assert.assertNotNull(message);
+        System.out.println(message);
     }
 }
